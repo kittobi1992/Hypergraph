@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hypergraph", "Hypergraph\Hypergraph.vcxproj", "{87C86C4B-4A53-474B-96B0-CB5E79932CDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|ARM.Build.0 = Debug|ARM
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|ARM64.Build.0 = Debug|ARM64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|x64.ActiveCfg = Debug|x64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|x64.Build.0 = Debug|x64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|x86.ActiveCfg = Debug|x86
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Debug|x86.Build.0 = Debug|x86
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|ARM.ActiveCfg = Release|ARM
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|ARM.Build.0 = Release|ARM
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|ARM64.ActiveCfg = Release|ARM64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|ARM64.Build.0 = Release|ARM64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x64.ActiveCfg = Release|x64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x64.Build.0 = Release|x64
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x86.ActiveCfg = Release|x86
+		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88BB2EB0-EBB8-4EA3-A972-22B74DDDEE53}
+	EndGlobalSection
+EndGlobal
