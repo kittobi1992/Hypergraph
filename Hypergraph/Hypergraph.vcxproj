@@ -59,6 +59,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -75,6 +76,10 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="Hypergraph.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Hypergraph.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
