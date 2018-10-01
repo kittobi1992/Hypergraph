@@ -33,6 +33,10 @@ public:
     void addNode(int id, int weight = 0);
     void addEdge(int id, std::vector<int> nodeIds, int weight = 0);
 
+    void removeNode(int id);
+    void removeEdge(int id);
+
+
     void exportToHMetis(std::ostream &os);
 
 };

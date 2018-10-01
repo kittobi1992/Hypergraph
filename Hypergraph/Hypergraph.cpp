@@ -11,7 +11,18 @@ Hypergraph::Hypergraph(bool weightedNodes, bool weightedEdges)
 template <class T>
 void validateID(std::vector<T> v, int id) {
     if (std::find_if(v.begin(), v.end(), [id](T &n) {return n.id == id; }) != v.end()) {
-        throw std::invalid_argument("Duplicate node id: " + id);
+        throw std::invalid_argument("Duplicate id: " + id);
+    }
+}
+
+template <class T>
+void removeID(std::vector<T> v, int id) {
+    auto it = std::find_if(v.begin(), v.end(), [id](T &n) {return n.id == id; });
+    if (it == v.end()) {
+        throw std::invalid_argument("Not existing id: " + id);
+    }
+    else {
+        v.erase(it);
     }
 }
 
@@ -26,6 +37,16 @@ void Hypergraph::addEdge(int id, std::vector<int> nodeIds, int weight)
 {
     validateID(edges, id);
     edges.push_back(HEdge(id, nodeIds, weight));
+}
+
+void Hypergraph::removeNode(int id)
+{
+    removeID(nodes, id);
+}
+
+void Hypergraph::removeEdge(int id)
+{
+    removeID(edges, id);
 }
 
 
