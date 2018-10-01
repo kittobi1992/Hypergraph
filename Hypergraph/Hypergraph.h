@@ -38,7 +38,6 @@ public:
     void removeNode(int id);
     void removeEdge(int id);
 
-
     void exportToHMetis(std::ostream &os);
 
 };

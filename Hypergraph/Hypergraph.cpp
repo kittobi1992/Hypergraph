@@ -65,16 +65,16 @@ void Hypergraph::removeEdge(int id)
 
 Hypergraph::HNode::HNode(int id, int weight)
 {
-    id = id;
-    weight = weight;
+    this->id = id;
+    this->weight = weight;
 }
 
 
 Hypergraph::HEdge::HEdge(int id, std::vector<int> nodeIds, int weight)
 {
-    id = id;
-    weight = weight;
-    nodeIds = move(nodeIds);
+    this->id = id;
+    this->weight = weight;
+    this->nodeIds = move(nodeIds);
 }
 
 void Hypergraph::exportToHMetis(std::ostream &os)
@@ -95,7 +95,7 @@ void Hypergraph::exportToHMetis(std::ostream &os)
     else if (weightedEdges) {
         fmt = "1";
     }
-    os << edges.size() << nodes.size() << fmt << std::endl;
+    os << edges.size() << " " << nodes.size() << " " << fmt << std::endl;
 
     /*
     After this first line, the remaining |Eh| lines store the vertices contained in each hyperedge–one line per hyperedge. In
@@ -104,10 +104,10 @@ void Hypergraph::exportToHMetis(std::ostream &os)
     */
     for (auto &edge : edges) {
         if (weightedEdges) {
-            os << edge.weight;
+            os << edge.weight << " ";
         }
         for (auto &id : edge.nodeIds) {
-            os << id;
+            os << id << " ";
         }
         os << std::endl;
     }
@@ -122,3 +122,4 @@ void Hypergraph::exportToHMetis(std::ostream &os)
         }
     }
 }
+

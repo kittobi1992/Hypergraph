@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hypergraph", "Hypergraph\Hypergraph.vcxproj", "{87C86C4B-4A53-474B-96B0-CB5E79932CDD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HypergraphTests", "HypergraphTests\HypergraphTests.vcxproj", "{1D947AC0-2328-4B02-9054-E43D18D560D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -33,6 +35,18 @@ Global
 		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x64.Build.0 = Release|x64
 		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x86.ActiveCfg = Release|x86
 		{87C86C4B-4A53-474B-96B0-CB5E79932CDD}.Release|x86.Build.0 = Release|x86
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|ARM.ActiveCfg = Debug|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|x64.ActiveCfg = Debug|x64
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|x64.Build.0 = Debug|x64
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Debug|x86.Build.0 = Debug|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|ARM.ActiveCfg = Release|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|ARM64.ActiveCfg = Release|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|x64.ActiveCfg = Release|x64
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|x64.Build.0 = Release|x64
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|x86.ActiveCfg = Release|Win32
+		{1D947AC0-2328-4B02-9054-E43D18D560D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
