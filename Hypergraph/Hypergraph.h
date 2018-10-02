@@ -4,6 +4,15 @@
 #include <map>
 #include <iostream>
 
+// comment: 
+// using NodeId = int;
+// using NodeWeight = int;
+// using HyperedgeId = int;
+// using HyperedgeWeight = int;
+// using HyperedgeVector = std::vector< NodeId >;
+// Looks a bit stupid, but it will make your code much cleaner and better readable, if you use these types. You will heavily find
+// in our codebase.
+
 class Hypergraph
 {
     struct HNode {
@@ -21,7 +30,7 @@ class Hypergraph
 
         HEdge(int id, std::vector<int> nodeIds, int weight);
     };
-
+ 
     // comment: I try to prevent the usage of std::map as often as I can because they are very slow in practice.
     // However, I think for your use case it is okay, because you only need the structure for modelling the hypergraph
     // and converting it to hMEtis-File-Format (no performance critical operations). Also you can use the partition id 
