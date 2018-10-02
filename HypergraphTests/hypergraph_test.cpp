@@ -218,11 +218,11 @@ TEST_F(HMetisTest, weightedNodesEdges) {
     hyper->weightedNodes = true;
     hyper->weightedEdges = true;
 
+    hyper->addNode(5, 3);
     hyper->addNode(1, 5);
     hyper->addNode(2, 1);
     hyper->addNode(3, 8);
     hyper->addNode(4, 7);
-    hyper->addNode(5, 3);
     hyper->addNode(6, 9);
     hyper->addNode(7, 3);
 

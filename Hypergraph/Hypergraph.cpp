@@ -3,15 +3,8 @@
 #include <algorithm>
 
 template <class T>
-void validateID(std::vector<T> v, int id) {
-    if (std::find_if(v.begin(), v.end(), [id](T &n) {return n.id == id; }) != v.end()) {
-        throw std::invalid_argument("Duplicate id: " + id);
-    }
-}
-
-template <class T>
-void removeID(std::vector<T> v, int id) {
-    auto it = std::find_if(v.begin(), v.end(), [id](T &n) {return n.id == id; });
+void removeID(std::map<int, T> &v, int id) {
+    auto it = v.find(id);
     if (it == v.end()) {
         throw std::invalid_argument("Not existing id: " + id);
     }
@@ -29,27 +22,31 @@ Hypergraph::Hypergraph(bool weightedNodes, bool weightedEdges)
 
 void Hypergraph::addNode(int id, int weight)
 {
-    validateID(nodes, id);
-    nodes.push_back(HNode(id, weight));
+    if (!nodes.insert(std::pair<int, HNode>(id, HNode(id, weight))).second) {
+        throw std::invalid_argument("Duplicate id: " + id);
+    }
 }
 
 void Hypergraph::addEdge(int id, std::vector<int> nodeIds, int weight)
 {
-    validateID(edges, id);
+
     if (nodeIds.empty()) {
         throw std::invalid_argument("Edges with no containing nodes are not allowed.");
     }
     for (int nId : nodeIds) {
-        if (std::find_if(nodes.begin(), nodes.end(), [nId](HNode &n) {return n.id == nId; }) == nodes.end()) {
+        if (nodes.find(nId) == nodes.end()) {
             throw std::invalid_argument("Node contained by edge must be added before.");
         }
     }
-    edges.push_back(HEdge(id, nodeIds, weight));
+    if (!edges.insert(std::pair<int, HEdge>(id, HEdge(id, std::move(nodeIds), weight))).second) {
+        throw std::invalid_argument("Duplicate id: " + id);
+    }
 }
 
 void Hypergraph::removeNode(int id)
 {
-    for (auto edge : edges) {
+    for (const auto& entry : edges) {
+        auto &edge = entry.second;
         if (std::find(edge.nodeIds.begin(), edge.nodeIds.end(), id) != edge.nodeIds.end()) {
             throw std::invalid_argument("Cannot remove node that is part of existing edge.");
         }
@@ -102,7 +99,9 @@ void Hypergraph::exportToHMetis(std::ostream &os)
     particular, the i th line (excluding comment lines) contains the vertices that are included in the (i−1)th hyperedge.
     The first integer in each line contains the weight of the respective hyperedge.
     */
-    for (auto &edge : edges) {
+    for (auto &entry : edges) {
+        auto &edge = entry.second;
+
         if (weightedEdges) {
             os << edge.weight << " ";
         }
@@ -116,8 +115,9 @@ void Hypergraph::exportToHMetis(std::ostream &os)
     If weights on nodes are enabled,| V | lines are appended to the input file, containing the weight of the | V | vertices.
     */
     if (weightedNodes) {
-        std::sort(nodes.begin(), nodes.end(), [](HNode &n, HNode &m) {return n.id < m.id; });
-        for (auto &node : nodes) {
+        for (auto &entry : nodes) {
+            auto &node = entry.second;
+
             os << node.weight << std::endl;
         }
     }

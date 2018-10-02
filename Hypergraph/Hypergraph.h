@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <iostream>
 
 class Hypergraph
@@ -21,8 +22,8 @@ class Hypergraph
         HEdge(int id, std::vector<int> nodeIds, int weight);
     };
 
-    std::vector<HNode> nodes;
-    std::vector<HEdge> edges;
+    std::map<int, HNode> nodes;
+    std::map<int, HEdge> edges;
 
 public:
     bool weightedNodes;
