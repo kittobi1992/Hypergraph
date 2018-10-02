@@ -5,7 +5,14 @@
 class HypergraphTest : public ::testing::Test {
 
 protected:
-
+    
+    // comment: I don't think you need a std::unique_ptr and SetUp here
+    // => 
+    // public:
+    //  HypergraphTest() : hypergraph() { }
+    //  Hypergraph hypergraph;
+    // This will also work.
+    
     virtual void SetUp() {
         hyper = std::unique_ptr<Hypergraph>(new Hypergraph());
     }
@@ -13,11 +20,13 @@ protected:
     std::unique_ptr<Hypergraph> hyper;
 };
 
+// comment: I think HypergraphTest is sufficient here, you can make it in the name of test more clear what the test is for.
 class NodeTest : public HypergraphTest {};
 class EdgeTest : public HypergraphTest {};
 class HMetisTest : public HypergraphTest {};
 
 TEST_F(HypergraphTest, CorrectInit) {
+    // comment: make seperate test for each case, if some test fails it will make it easier do find out the issue.
     auto hyper_default = std::unique_ptr<Hypergraph>(new Hypergraph());
     EXPECT_FALSE(hyper_default->weightedNodes);
     EXPECT_FALSE(hyper_default->weightedEdges);
@@ -35,9 +44,17 @@ TEST_F(HypergraphTest, CorrectInit) {
     EXPECT_FALSE(hyper_mixed->weightedEdges);
 }
 
+// comment: In general, you can write sentences in the names of your test, I might look weird, but make it more
+// clear to other what the test stands for. E.g.:
+// TEST_F(HMetisTest, weightedNodesEdges) -> TEST_F(HypergraphTest, WritesToHMetisFileFormatWithWeightedNodesAndEdges)
 
+// comment: Naming convention: TEST_F( NodeTest, AddsAnUnweightedNode ) 
 TEST_F(NodeTest, addnweighted) {
     hyper->addNode(0);
+    // comment: 
+    // EXPECT_EQ( hyper->ContainsNode( 0 ) );
+    // EXPECT_EQ( hyper->GetWeight( 0 ), 1 );
+    // might by some idea for additional functionality of the hypergraph ;)
 }
 
 TEST_F(NodeTest, addWeighted) {
@@ -55,6 +72,9 @@ TEST_F(EdgeTest, addUnweighted) {
     hyper->addNode(2);
 
     hyper->addEdge(0, std::vector<int>{1, 2});
+    
+    // Comment: Also check if hypergraph contains node and hyperedge and also the content of the hyperedge (see comment above)
+    // You can build a iterator to iterate over the node ids of the hyperedge
 }
 
 
@@ -111,6 +131,7 @@ TEST_F(EdgeTest, removeExisting) {
 TEST_F(EdgeTest, removeNotExisting) {
     EXPECT_THROW(hyper->removeEdge(0), std::invalid_argument);
 }
+
 
 TEST_F(HMetisTest, unweighted) {
     hyper->addNode(1);
