@@ -2,12 +2,6 @@
 
 #include <algorithm>
 
-Hypergraph::Hypergraph(bool weightedNodes, bool weightedEdges)
-{
-    weightedNodes = weightedNodes;
-    weightedEdges = weightedEdges;
-}
-
 template <class T>
 void validateID(std::vector<T> v, int id) {
     if (std::find_if(v.begin(), v.end(), [id](T &n) {return n.id == id; }) != v.end()) {
@@ -26,21 +20,40 @@ void removeID(std::vector<T> v, int id) {
     }
 }
 
+Hypergraph::Hypergraph(bool weightedNodes, bool weightedEdges)
+{
+    this->weightedNodes = weightedNodes;
+    this->weightedEdges = weightedEdges;
+}
+
+
 void Hypergraph::addNode(int id, int weight)
 {
     validateID(nodes, id);
     nodes.push_back(HNode(id, weight));
 }
 
-
 void Hypergraph::addEdge(int id, std::vector<int> nodeIds, int weight)
 {
     validateID(edges, id);
+    if (nodeIds.empty()) {
+        throw std::invalid_argument("Edges with no containing nodes are not allowed.");
+    }
+    for (int nId : nodeIds) {
+        if (std::find_if(nodes.begin(), nodes.end(), [nId](HNode &n) {return n.id == nId; }) == nodes.end()) {
+            throw std::invalid_argument("Node contained by edge must be added before.");
+        }
+    }
     edges.push_back(HEdge(id, nodeIds, weight));
 }
 
 void Hypergraph::removeNode(int id)
 {
+    for (auto edge : edges) {
+        if (std::find(edge.nodeIds.begin(), edge.nodeIds.end(), id) != edge.nodeIds.end()) {
+            throw std::invalid_argument("Cannot remove node that is part of existing edge.");
+        }
+    }
     removeID(nodes, id);
 }
 
