@@ -2,6 +2,14 @@
 
 #include <algorithm>
 
+// comment: In general, it is good that you think about invalid states where exceptions are thrown.
+// But in your case I would prefer assertions instead of exceptions. This has several advantages:
+// 1. Performance -> Assertions can be enabled in a debug build and disabled in release build, which
+//    improve performance in release versions.
+// 2. More clean code
+// 3. Exceptions are thrown when user uses wrong input, but you can verify with gtests a correct usage
+//    of your hypergraph model. Therefore, assertions are preferable.
+
 template <class T>
 void removeID(std::map<int, T> &v, int id) {
     auto it = v.find(id);
@@ -22,6 +30,9 @@ Hypergraph::Hypergraph(bool weightedNodes, bool weightedEdges)
 
 void Hypergraph::addNode(int id, int weight)
 {
+    // comment: Make it more clear what is meant with this condition
+    // => bool succes = nodes.insert(std::pair<int, HNode>(id, HNode(id, weight))).second
+    //    if ( !success ) ...
     if (!nodes.insert(std::pair<int, HNode>(id, HNode(id, weight))).second) {
         throw std::invalid_argument("Duplicate id: " + id);
     }
@@ -41,6 +52,11 @@ void Hypergraph::addEdge(int id, std::vector<int> nodeIds, int weight)
     if (!edges.insert(std::pair<int, HEdge>(id, HEdge(id, std::move(nodeIds), weight))).second) {
         throw std::invalid_argument("Duplicate id: " + id);
     }
+    // comment: Another case, what is if you add the same hyperedge twice with different ids?
+    // To fastly check if two hyperedges are the same (contains the same node ids) we use a so called footprint of
+    // a hyperedge. A footprint is a hash function defined (in your case) over std::vector<int>. It is also described
+    // in a KaHyPar paper ( might be the recursive bisection or direct k-way paper ). If two hyperedges are equal, they have the same
+    // footprint. To implement this you need a extra mapping of Footprint -> Hyperedge Id
 }
 
 void Hypergraph::removeNode(int id)
@@ -48,6 +64,7 @@ void Hypergraph::removeNode(int id)
     for (const auto& entry : edges) {
         auto &edge = entry.second;
         if (std::find(edge.nodeIds.begin(), edge.nodeIds.end(), id) != edge.nodeIds.end()) {
+            // comment: Why? Just swap the id to end of the hyperedge vector and pop it => removal in O(1)
             throw std::invalid_argument("Cannot remove node that is part of existing edge.");
         }
     }
@@ -106,6 +123,9 @@ void Hypergraph::exportToHMetis(std::ostream &os)
             os << edge.weight << " ";
         }
         for (auto &id : edge.nodeIds) {
+            // comment: hMetis-File-Format requires that the ids of the nodes are numbered from 0..|V|-1.
+            // Your code thus not guarantees that, because you use a std::map. In that case you have to compute
+            // a mapping from your node ids to [0,|V|-1]
             os << id << " ";
         }
         os << std::endl;
